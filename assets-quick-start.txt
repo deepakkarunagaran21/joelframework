@@ -1,0 +1,12 @@
+QUICK START — JOEL FRAME WORK'S
+
+1. Open the assets folder.
+2. Paste your product cover photos as product-01.jpg through product-10.jpg.
+3. Paste hero images as hero-01.jpg through hero-03.jpg.
+4. Paste gallery images as gallery-01.jpg through gallery-06.jpg.
+5. Paste project images as project-01.jpg through project-04.jpg.
+6. Paste videos as video-01.mp4 through video-04.mp4.
+7. Keep the names exactly as listed.
+8. Open index.html — the website reads these files automatically.
+
+If an asset is not yet added, the site keeps a clean premium placeholder instead of a broken layout.

@@ -1,0 +1,16 @@
+FIX FOR “Tainted canvases may not be exported”
+
+Why it happened
+The website was opened directly from a Windows file path (file:///C:/...). Chrome restricts canvas image export for local file pages, so the website cannot generate PNG frame previews or the order bundle.
+
+How to run the corrected project
+1. Extract the entire ZIP to a normal folder.
+2. Install Python if it is not installed: https://www.python.org/downloads/ (enable “Add Python to PATH”).
+3. Double-click START-JOEL-WEBSITE.bat.
+4. Keep the black command window open. The site should open at http://localhost:8000/index.html.
+5. Use the website from the localhost URL, not the file:/// URL.
+6. Test a combo order again. Frame previews can now be exported because the website and its frame assets share the same localhost origin.
+
+To stop the local server, click the black command window and press Ctrl+C.
+
+For a live public website, upload the extracted website folder to your hosting provider instead. The EmailJS configuration in order-config.js must also be filled with real Service ID, Template ID and Public Key before automatic email sending works.

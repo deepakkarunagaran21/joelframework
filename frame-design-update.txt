@@ -1,0 +1,10 @@
+Joel Frame Work's website update
+
+Product page changes only:
+- Replaced eight CSS-generated frame swatches with eight real moulding textures cropped from the supplied FRAME SAMPLES PDF.
+- Added eight matching frame-border previews made from the actual supplied moulding photos.
+- The live preview changes when a frame design is selected.
+- Customer-uploaded images now fill the photo opening with object-fit: cover, removing the unnecessary white letterboxing.
+- Kept the existing size selector, prices, finish options, customer fields, order ID and WhatsApp order flow.
+
+Open index.html to view the site. Open product.html?id=frame-10x8 to test the product customiser.

@@ -1,0 +1,42 @@
+JOEL FRAME WORK'S — WEBSITE UPDATE NOTES
+
+Changes in this build
+- Cropped the transparent padding around the header/footer Joel logo and chatbot icon assets.
+- Refined the gallery into a consistent responsive grid. Gallery images now fill their image areas and no longer leave oversized blank spaces.
+- Added the original uploaded filename to individual frame order details.
+- WhatsApp order notifications now include customer name, mobile, delivery address, selected frame/design, and original filename(s).
+- Individual frame and combo orders include original uploaded photo(s), generated customized preview image(s), and order details in the email ZIP workflow.
+
+IMPORTANT: EMAIL DELIVERY SETUP REQUIRED
+The website cannot email attachments until EmailJS is configured. Open EMAIL-SETUP.txt and replace the three placeholder values in order-config.js:
+- emailJsServiceId
+- emailJsTemplateId
+- emailJsPublicKey
+
+Do not add a private API key or Gmail password to website files.
+The configured owner email is designsabhinav@gmail.com. The WhatsApp notification number is set in order-config.js.
+When EmailJS is not configured or sending fails, the site downloads the original image(s) and previews as a manual fallback and opens WhatsApp with an order notification. A wa.me link cannot silently attach image files; the owner must receive images through the configured email attachment workflow or the customer must attach them manually in WhatsApp.
+
+Testing
+1. Serve the website through a local web server rather than opening product pages via file://.
+2. Test one individual frame order and one combo order.
+3. Confirm that the email contains ORDER-DETAILS.txt, original uploaded photo(s), generated preview(s), and the combined preview for combo orders.
+4. Confirm that the WhatsApp notification opens for +91 86104 93135.
+
+V9 GRID UPDATE
+- Combo Offers, Frame Gallery, Our Projects, and frame/product cards use consistent two-column grids on desktop and mobile.
+- Mobile cards use tighter spacing, responsive image ratios, and adjusted typography to avoid overflow.
+- Gallery and project cards no longer use oversized/wide spans that create uneven blank space.
+
+
+V10 UPDATE
+- Restored the wider desktop grid proportions: three combo cards and gallery cards per row, original asymmetrical projects layout, and four product cards per row.
+- Preserved the approved two-column mobile grids.
+- Tightened mobile product-detail/customiser alignment, input widths, upload controls, design options, and preview sizing without changing the desktop product-detail layout.
+
+V11 UPDATE — HERO ALIGNMENT + CAROUSELS
+- Repositioned mobile homepage hero copy toward the lower-left of the hero image, with responsive headline wrapping and buttons.
+- Added smooth horizontal carousels with scroll snapping, swipe/trackpad scrolling, keyboard arrow support and previous/next controls to Frame Gallery, Our Products and Videos.
+- Desktop shows multiple cards per view; tablet and mobile show a partial next card to indicate more content.
+- Video cards use a larger 16:9 crop on desktop and mobile.
+- Existing project grid and separate product detail pages are unchanged.

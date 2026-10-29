@@ -1,0 +1,19 @@
+JOEL FRAME WORK'S — EMAIL + WHATSAPP ORDER NOTIFICATIONS
+
+Owner email: designsabhinav@gmail.com
+Owner WhatsApp: +91 86104 93135 (from the existing website contact details)
+
+IMPORTANT: Email attachments are wired into the website, but sending will not become live until you add your own EmailJS service/template/public key in order-config.js.
+
+ONE-TIME SETUP
+1. Create an EmailJS account and connect the owner's Gmail account as an email service.
+2. Create an email template. Set the To Email field to {{to_email}}, Subject to {{subject}}, and email body to {{{order_message}}} (or {{order_message}} if you prefer escaped plain text).
+3. In the template's Attachments tab, add two Variable Attachments:
+   - Parameter name: order_bundle; filename: {{attachment_filename}}; content type ZIP / application-zip.
+   - Parameter name: order_preview; filename: {{preview_filename}}; content type PNG / image/png.
+4. In order-config.js, replace YOUR_EMAILJS_SERVICE_ID, YOUR_EMAILJS_TEMPLATE_ID, and YOUR_EMAILJS_PUBLIC_KEY with the values from EmailJS. Do not put a private key or Gmail password in the website.
+5. Upload all website files together and test both an individual frame order and a combo order.
+
+On order submission, the website builds a ZIP containing original customer photos, all generated frame preview images and ORDER-DETAILS.txt. It also attaches a combined preview image (combo order) or individual frame preview (individual product). It then opens WhatsApp with a prefilled notification to the owner. The user still needs to press Send in WhatsApp; normal website links cannot send WhatsApp messages silently.
+
+If email configuration is missing or the email request fails, the site downloads the image files as a manual fallback and still offers the WhatsApp notification.

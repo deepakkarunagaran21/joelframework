@@ -1,0 +1,16 @@
+JOEL FRAME WORK - GOOGLE REVIEW BUTTON UPDATE
+
+Changes made:
+- Removed the floating chatbot button and chat panel from the homepage.
+- Floating order from top to bottom: Instagram, WhatsApp, Google Reviews.
+- Added the supplied Google review graphic as assets/google-review-button.png.
+- Google review button opens https://shorturl.at/BzysN in a new tab.
+- Applied compact desktop and mobile sizing and spacing.
+- Added the dock to homepage, product page, and combo page.
+
+To publish: commit/push the extracted website files to the GitHub repository connected to Vercel, or upload the updated project through your usual deployment workflow.
+
+Note: The Google review link is the exact link supplied by the site owner; confirm it opens the correct Joel Frame Work review page before publishing.
+
+
+LATEST UPDATE (2026-10-29): Replaced the wide Google review banner image with the supplied round glossy Google G icon. Updated the homepage offer bar into a scrolling message asking customers for an honest Google review and stating free delivery on orders within 5 km of the store. Floating button order is Instagram, WhatsApp, Google Review. The Google review link remains https://shorturl.at/BzysN.

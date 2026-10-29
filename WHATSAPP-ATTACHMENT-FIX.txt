@@ -1,0 +1,16 @@
+JOEL FRAME WORK'S — WHATSAPP IMAGE ATTACHMENT FIX
+
+What changed
+- The site no longer downloads each original and preview image as separate files when email is not configured.
+- It bundles original uploaded photos, generated frame preview(s), and a text file with order details into one ZIP.
+- On browsers that support sharing files, the native share sheet opens with the ZIP and order message; choose WhatsApp and then the owner's chat.
+- On desktop browsers without file sharing, one ZIP downloads and WhatsApp opens with the order text. Attach that ZIP manually before pressing Send.
+- If EmailJS is correctly configured, the site emails the order bundle and opens WhatsApp with a notification.
+
+Important browser limitation
+A wa.me / WhatsApp Web link can prefill text, but it cannot attach a local file automatically or send a message without the user's action. To include files, use the native share sheet where supported, attach the downloaded ZIP manually on desktop, or configure EmailJS for email delivery.
+
+Before publishing
+1. Test an individual product order and a combo order.
+2. For automatic email delivery, follow EMAIL-SETUP.txt and set the EmailJS service ID, template ID and public key in order-config.js.
+3. Upload the full website folder to GitHub and redeploy on Vercel.

@@ -1,0 +1,32 @@
+JOEL FRAME WORK — SUPABASE ADMIN PORTAL SETUP
+
+WHAT IS INCLUDED
+- admin.html / admin.js: password-protected portal for products/prices, combo offers, Frame Gallery, Our Projects, Watch Our Work, and section/ticker copy.
+- supabase-config.js: your Supabase project URL and public anon/publishable key configuration.
+- supabase-schema.sql: table, security policies, media bucket and starter content.
+- site-content.js: public homepage reads published content from Supabase and renders the editable collections.
+- Ticker speed: desktop 18 seconds per loop; mobile 12 seconds per loop.
+
+SETUP STEPS
+1. Open https://supabase.com and create a project.
+2. In Project Settings -> API, copy Project URL and anon/public publishable key. Do NOT use service_role/secret key in website code.
+3. In SQL Editor, open supabase-schema.sql from this folder, paste all SQL, and Run.
+4. In Authentication -> Users, add your own admin user with email and password. Disable public sign-ups in Authentication settings. The admin portal does not provide a public sign-up page.
+5. Open supabase-config.js and replace PASTE_SUPABASE_PROJECT_URL_HERE and PASTE_SUPABASE_ANON_OR_PUBLISHABLE_KEY_HERE. Save. The bucket name should remain joel-site-media.
+6. Upload/commit the full website folder to GitHub and let Vercel deploy. Do not upload only admin.html.
+7. Visit https://YOUR-VERCEL-DOMAIN/admin.html and sign in with the Supabase admin user.
+8. Use the left navigation, edit items and click Save all changes. Image/video uploads go to Supabase Storage. Refresh the website to view changes.
+
+IMPORTANT NOTES
+- The portal is built but is not connected to your Supabase project until you fill the URL/key and run SQL.
+- Never put a service_role/secret key in the browser.
+- Supabase stores the front-page content lists as JSON in site_content. The public homepage dynamically updates combo cards, product cards, gallery, projects, videos and section text when connected.
+- Product and combo checkout details on individual detail pages still use existing local ordering logic. Ensure combo IDs remain combo-1 through combo-5 unless you also update the matching combo definition in combo.js. Updating product prices in the admin currently changes the homepage product cards; update price references in product-page.js and the sizes section if you need every legacy detail view to match until the next integration pass.
+- Ticker can be faster or slower by editing animation-duration in styles.css. Lower seconds = faster.
+- This starter admin uses authenticated Supabase users for write access. Keep admin accounts limited to trusted staff.
+
+
+DESKTOP FOOTER BUTTON
+- A desktop-only “Admin Portal” link is placed at the end of the homepage footer. It opens admin.html in a new tab. It is hidden on tablet/mobile widths.
+- The login requires the admin email/user ID and password created in Supabase Dashboard -> Authentication -> Users. No password is embedded in website files.
+- If you mean a separate username rather than an email, this current login uses the Supabase Auth email as the user ID.
