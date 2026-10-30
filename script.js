@@ -141,20 +141,83 @@ if(pillWrap && input && list && img && mat){
 }
 
 
-// Media assets: show a clean placeholder until the manually pasted file is actually available.
-function wireMediaAssets(){
-  document.querySelectorAll('.hero-placeholder img, .gallery-slot img, .project-slot img').forEach(img=>{
-    const markLoaded=()=>img.classList.add('asset-loaded');
-    img.addEventListener('load',markLoaded,{once:true});
-    if(img.complete && img.naturalWidth) markLoaded();
+// Media assets: keep images visible after both initial HTML and Supabase content updates.
+function wireMediaAssets(root=document){
+  if(!root) return;
+  const imageSelector='.hero-placeholder img, .gallery-slot img, .project-slot img, .video-slot img';
+  const videoSelector='.video-slot video';
+  const collect=(selector)=>{
+    const found=[];
+    if(root.nodeType===1 && root.matches?.(selector)) found.push(root);
+    if(root.querySelectorAll) found.push(...root.querySelectorAll(selector));
+    return found;
+  };
+  const ensureFallback=(media,label)=>{
+    const host=media.parentElement;
+    if(!host) return null;
+    let fallback=[...host.children].find(node=>node.classList?.contains('media-fallback'));
+    if(!fallback){
+      fallback=document.createElement('div');
+      fallback.className='media-fallback';
+      fallback.innerHTML='<span>'+label+'</span><small>Image unavailable — check the image URL in the Admin Portal.</small>';
+      host.appendChild(fallback);
+    }
+    return fallback;
+  };
+
+  collect(imageSelector).forEach(img=>{
+    if(img.dataset.mediaWired==='true') return;
+    img.dataset.mediaWired='true';
+    const label=img.closest('.gallery-slot')?'GALLERY IMAGE':img.closest('.project-slot')?'PROJECT IMAGE':img.closest('.video-slot')?'VIDEO THUMBNAIL':'HERO IMAGE';
+    const fallback=ensureFallback(img,label);
+    const markLoaded=()=>{
+      img.classList.remove('asset-error');
+      img.classList.add('asset-loaded');
+    };
+    const markFailed=()=>{
+      img.classList.remove('asset-loaded');
+      img.classList.add('asset-error');
+      if(fallback) fallback.hidden=false;
+    };
+    img.addEventListener('load',markLoaded);
+    img.addEventListener('error',markFailed);
+    if(img.complete){
+      if(img.naturalWidth>0) markLoaded();
+      else if(img.currentSrc||img.src) markFailed();
+    }
   });
-  document.querySelectorAll('.video-slot video').forEach(video=>{
-    const markLoaded=()=>video.classList.add('asset-loaded');
-    video.addEventListener('loadeddata',markLoaded,{once:true});
-    video.addEventListener('canplay',markLoaded,{once:true});
+
+  collect(videoSelector).forEach(video=>{
+    if(video.dataset.mediaWired==='true') return;
+    video.dataset.mediaWired='true';
+    const fallback=ensureFallback(video,'VIDEO PREVIEW');
+    const markLoaded=()=>{
+      video.classList.remove('asset-error');
+      video.classList.add('asset-loaded');
+    };
+    const markFailed=()=>{
+      video.classList.remove('asset-loaded');
+      video.classList.add('asset-error');
+      if(fallback) fallback.hidden=false;
+    };
+    video.addEventListener('loadeddata',markLoaded);
+    video.addEventListener('canplay',markLoaded);
+    video.addEventListener('error',markFailed);
+    if(video.readyState>=2) markLoaded();
   });
 }
 wireMediaAssets();
+
+// Supabase replaces gallery/project/video cards after page load. Watch for those
+// new elements and attach the same load/error handling before they can stay hidden.
+if('MutationObserver' in window){
+  const mediaObserver=new MutationObserver(records=>{
+    records.forEach(record=>record.addedNodes.forEach(node=>{
+      if(node.nodeType===1) wireMediaAssets(node);
+    }));
+  });
+  mediaObserver.observe(document.documentElement,{childList:true,subtree:true});
+}
 
 // Chatbot
 const chat=$('#chatbot'), chatToggle=$('#chatToggle'), chatClose=$('#chatClose'), chatBody=$('#chatBody');
