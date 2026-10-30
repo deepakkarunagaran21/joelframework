@@ -37,59 +37,106 @@ if(productGrid && typeof PRODUCTS!=='undefined') {
   });
 }
 
-// Responsive, gentle auto-sliding carousels. They pause while the visitor interacts.
-function setupCarousel(selector, label){
+// Smooth auto-sliding carousels for products, gallery, projects and videos.
+// Visitors can also drag with a mouse, swipe on touchscreens, use the wheel, or tap arrows.
+function setupCarousel(selector, label, delay=4200){
   const track=document.querySelector(selector);
   if(!track || track.dataset.carouselReady==='true' || !track.children.length) return;
   track.dataset.carouselReady='true';
   track.classList.add('carousel-track');
   track.setAttribute('tabindex','0');
   track.setAttribute('aria-label',label);
+
   const controls=document.createElement('div');
   controls.className='carousel-controls';
-  controls.innerHTML=`<span class="carousel-hint">Auto-sliding slowly · swipe or use arrows</span><div class="carousel-buttons"><button type="button" class="carousel-arrow carousel-prev" aria-label="Previous ${label}">←</button><button type="button" class="carousel-arrow carousel-next" aria-label="Next ${label}">→</button></div>`;
+  controls.innerHTML=`<span class="carousel-hint">Slides automatically · drag, swipe or use arrows</span><div class="carousel-buttons"><button type="button" class="carousel-arrow carousel-prev" aria-label="Previous ${label}">←</button><button type="button" class="carousel-arrow carousel-next" aria-label="Next ${label}">→</button></div>`;
   track.insertAdjacentElement('afterend',controls);
+
   const step=()=>{
     const card=track.querySelector(':scope > *');
     if(!card) return track.clientWidth*.8;
-    const style=getComputedStyle(track), gap=parseFloat(style.columnGap||style.gap)||0;
+    const style=getComputedStyle(track);
+    const gap=parseFloat(style.columnGap||style.gap)||0;
     return card.getBoundingClientRect().width+gap;
   };
-  const move=direction=>{
-    const max=Math.max(0,track.scrollWidth-track.clientWidth);
-    if(direction>0 && track.scrollLeft>=max-8) track.scrollTo({left:0,behavior:'smooth'});
-    else if(direction<0 && track.scrollLeft<=8) track.scrollTo({left:max,behavior:'smooth'});
-    else track.scrollBy({left:direction*step(),behavior:'smooth'});
+  const maxScroll=()=>Math.max(0,track.scrollWidth-track.clientWidth);
+  const move=(direction)=>{
+    const max=maxScroll();
+    if(max<=8) return;
+    const next=track.scrollLeft+direction*step();
+    if(direction>0 && next>=max-4) track.scrollTo({left:0,behavior:'smooth'});
+    else if(direction<0 && next<=4) track.scrollTo({left:max,behavior:'smooth'});
+    else track.scrollTo({left:Math.max(0,Math.min(max,next)),behavior:'smooth'});
   };
-  let pausedUntil=0, hovered=false, focused=false, inView=true;
-  const pauseBriefly=()=>{pausedUntil=Date.now()+9000;};
+
+  let pausedUntil=0,hovered=false,focused=false,inView=true;
+  let autoDirection=1;
+  let dragStartX=0,dragStartScroll=0,dragging=false,didDrag=false;
+  const pauseBriefly=()=>{pausedUntil=Date.now()+7500;};
   controls.querySelector('.carousel-prev').addEventListener('click',()=>{pauseBriefly();move(-1)});
   controls.querySelector('.carousel-next').addEventListener('click',()=>{pauseBriefly();move(1)});
+
+  // Mouse / pen drag. Native touch scrolling remains enabled on phones and tablets.
+  track.addEventListener('pointerdown',event=>{
+    if(event.pointerType==='touch' || event.button!==0 || event.target.closest('a,button,video,input,select,textarea')) return;
+    dragging=true;didDrag=false;dragStartX=event.clientX;dragStartScroll=track.scrollLeft;
+    track.classList.add('is-dragging');
+    pauseBriefly();
+  });
+  track.addEventListener('pointermove',event=>{
+    if(!dragging) return;
+    const distance=event.clientX-dragStartX;
+    if(Math.abs(distance)>4) didDrag=true;
+    if(didDrag){
+      track.scrollLeft=dragStartScroll-distance;
+      if(event.cancelable) event.preventDefault();
+    }
+  });
+  const finishDrag=()=>{
+    if(!dragging) return;
+    dragging=false;
+    track.classList.remove('is-dragging');
+    if(didDrag){
+      window.setTimeout(()=>{didDrag=false},80);
+      pauseBriefly();
+    }
+  };
+  track.addEventListener('pointerup',finishDrag);
+  track.addEventListener('pointercancel',finishDrag);
+  track.addEventListener('lostpointercapture',finishDrag);
+  track.addEventListener('click',event=>{
+    if(didDrag){event.preventDefault();event.stopPropagation();didDrag=false;}
+  },true);
+
   track.addEventListener('pointerenter',()=>{hovered=true});
-  track.addEventListener('pointerleave',()=>{hovered=false;pauseBriefly()});
+  track.addEventListener('pointerleave',()=>{hovered=false;pauseBriefly();finishDrag()});
   track.addEventListener('focusin',()=>{focused=true;pauseBriefly()});
   track.addEventListener('focusout',()=>{focused=false;pauseBriefly()});
   track.addEventListener('touchstart',pauseBriefly,{passive:true});
   track.addEventListener('wheel',pauseBriefly,{passive:true});
-  track.addEventListener('pointerdown',pauseBriefly);
   track.addEventListener('keydown',event=>{
     if(event.key==='ArrowRight'){event.preventDefault();pauseBriefly();move(1)}
     if(event.key==='ArrowLeft'){event.preventDefault();pauseBriefly();move(-1)}
   });
+
   if('IntersectionObserver' in window){
     const observer=new IntersectionObserver(entries=>{inView=entries[0].isIntersecting},{threshold:.08});
     observer.observe(track);
   }
   const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(!reduceMotion) setInterval(()=>{
-    if(document.hidden || !inView || hovered || focused || Date.now()<pausedUntil || track.scrollWidth<=track.clientWidth+8) return;
-    move(1);
-  },5200);
+  if(!reduceMotion) window.setInterval(()=>{
+    const max=maxScroll();
+    if(document.hidden || !inView || hovered || focused || dragging || Date.now()<pausedUntil || max<=8) return;
+    // Reverse smoothly at either end so the carousel never visibly jumps back to start.
+    if(autoDirection>0 && track.scrollLeft>=max-8) autoDirection=-1;
+    else if(autoDirection<0 && track.scrollLeft<=8) autoDirection=1;
+    track.scrollTo({left:Math.max(0,Math.min(max,track.scrollLeft+autoDirection*step())),behavior:'smooth'});
+  },delay);
 }
-setupCarousel('.gallery-grid','frame gallery');
-setupCarousel('#productGrid','our products');
-setupCarousel('.project-grid','our projects');
-setupCarousel('.video-grid','videos');
+setupCarousel('.gallery-grid','frame gallery',3900);
+setupCarousel('#productGrid','our products',4300);
+setupCarousel('.project-grid','our projects',4100);
+setupCarousel('.video-grid','videos',4500);
 
 // Make any non-link area of a frame-gallery card open its mapped product page.
 document.querySelectorAll('.gallery-card[data-product-href]').forEach(card=>{
