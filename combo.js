@@ -58,3 +58,5 @@ $('#sendComboOrder').onclick=async()=>{
  }catch(e){console.error(e);status.textContent='Order failed: '+(e.message||String(e))}
  finally{button.disabled=false;button.textContent='Order Now · Send to WhatsApp';status.scrollIntoView({behavior:'smooth',block:'nearest'})}
 };
+updatePreview();
+renderSummary();
