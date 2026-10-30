@@ -1046,3 +1046,35 @@ img,video{max-width:100%}
 @media(prefers-reduced-motion:reduce){
   .gallery-slot>img,.project-slot>img,.video-slot>img{transition:none}
 }
+
+/* V20 — visible drag affordance and gentle card movement in every carousel. */
+.carousel-track{
+  cursor:grab;
+  scroll-behavior:smooth;
+}
+.carousel-track.is-dragging{
+  cursor:grabbing;
+  scroll-behavior:auto!important;
+  scroll-snap-type:none!important;
+  user-select:none;
+}
+.carousel-track.is-dragging>*{
+  pointer-events:none;
+}
+.carousel-track:not(.is-dragging)>*{
+  transition:transform .28s ease,box-shadow .28s ease;
+}
+.carousel-track:not(.is-dragging)>*:hover{
+  transform:translateY(-4px);
+}
+.carousel-arrow{
+  transition:transform .18s ease,background .2s ease,color .2s ease,border-color .2s ease;
+}
+.carousel-arrow:active{
+  transform:scale(.94);
+}
+@media(prefers-reduced-motion:reduce){
+  .carousel-track:not(.is-dragging)>*,
+  .carousel-arrow{transition:none!important}
+  .carousel-track:not(.is-dragging)>*:hover{transform:none}
+}
