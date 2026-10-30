@@ -9,8 +9,44 @@
  $('#loginForm').addEventListener('submit',async e=>{e.preventDefault();if(!configured()){ $('#loginStatus').textContent='Edit supabase-config.js and add the project URL and anon key first.';return;}if(!db)db=window.supabase.createClient(config.url,config.anonKey);$('#loginStatus').textContent='Signing in…';const {data,error}=await db.auth.signInWithPassword({email:$('#adminEmail').value.trim(),password:$('#adminPassword').value});if(error){$('#loginStatus').textContent=error.message;return;}currentUser=data.user;showApp();});
  async function showApp(){$('#loginView').classList.add('hidden');$('#appView').classList.remove('hidden');status('Connected. Loading content…');await loadKey(currentKey);}
  $('#logoutBtn').onclick=async()=>{if(db)await db.auth.signOut();currentUser=null;$('#appView').classList.add('hidden');$('#loginView').classList.remove('hidden');};
- $('#adminNav').addEventListener('click',async e=>{const b=e.target.closest('button[data-key]');if(!b)return;currentKey=b.dataset.key;$('#adminNav button').forEach(x=>x.classList.toggle('active',x===b));$('#sectionTitle').textContent=meta[currentKey]?.title||'Section text & ticker';$('#sectionDescription').textContent=meta[currentKey]?.desc||'Update promotional ticker and section descriptions.';await loadKey(currentKey);});
- async function loadKey(key){$('#itemsView').classList.remove('hidden');$('#settingsView').classList.add('hidden');$('#addItemBtn').classList.toggle('hidden',key==='site_settings');if(!db){status('Supabase is not configured.');return;}status('Loading '+key+'…');const {data,error}=await db.from('site_content').select('content').eq('key',key).maybeSingle();if(error){status(error.message+' — run supabase-schema.sql first.', 'error');return;}records=Array.isArray(data?.content)?data.content:(key==='site_settings'?(data?.content||{}):(defaults[key]||[]));if(key==='site_settings'){renderSettings();return;}renderList();status(`${records.length} item(s). Remember to click Save after editing.`, 'success');}
+ $('#adminNav').addEventListener('click',async e=>{
+   const b=e.target.closest('button[data-key]');
+   if(!b || !$('#adminNav').contains(b)) return;
+   e.preventDefault();
+   const key=b.dataset.key;
+   if(!key) return;
+   currentKey=key;
+   $('#adminNav').querySelectorAll('button[data-key]').forEach(x=>{
+     x.classList.toggle('active',x===b);
+     x.setAttribute('aria-current',x===b?'page':'false');
+   });
+   $('#sectionTitle').textContent=meta[key]?.title || 'Section text & ticker';
+   $('#sectionDescription').textContent=meta[key]?.desc || 'Update promotional ticker and section descriptions.';
+   $('#modalRoot').innerHTML='';
+   status('Opening '+(meta[key]?.title || 'Section text & ticker')+'…');
+   try {
+     await loadKey(key);
+   } catch(err) {
+     console.error('Admin section navigation error:',err);
+     status('Could not load this section: '+(err?.message || String(err)),'error');
+   }
+ }, true);
+ async function loadKey(key){
+   const items=$('#itemsView'),settings=$('#settingsView'),add=$('#addItemBtn');
+   if(!items||!settings||!add){throw new Error('Admin HTML is missing a required content panel.');}
+   items.classList.toggle('hidden',key==='site_settings');
+   settings.classList.toggle('hidden',key!=='site_settings');
+   add.classList.toggle('hidden',key==='site_settings');
+   if(!db){status('Supabase is not configured.','error');return;}
+   status('Loading '+key+'…');
+   const {data,error}=await db.from('site_content').select('content').eq('key',key).maybeSingle();
+   if(error){status(error.message+' — check the site_content table and Supabase policies.','error');return;}
+   records=Array.isArray(data?.content)?data.content:(key==='site_settings'?(data?.content||{}):(defaults[key]||[]));
+   if(key==='site_settings'){renderSettings();status('Section text & ticker loaded.','success');return;}
+   if(!meta[key]){status('Unknown admin section: '+key,'error');return;}
+   renderList();
+   status(records.length+' item(s). Remember to click Save after editing.','success');
+ }
  function renderList(){const view=$('#itemsView');if(!records.length){view.innerHTML='<div class="admin-empty">No items yet. Click Add new to create one.</div>';return;}view.innerHTML=records.map((r,i)=>`<article class="admin-item"><img src="${esc(r.image||r.video||'assets/joel-logo.png')}" alt="" onerror="this.style.opacity=.2"><div><h3>${esc(r.name||r.title||r.label||r.id||('Item '+(i+1)))}</h3><p>${currentKey==='products'?esc(r.size||'')+' · '+esc(r.finish||'')+' · ₹'+Number(r.price||0).toLocaleString('en-IN'):currentKey==='combo_offers'?'₹'+Number(r.price||0).toLocaleString('en-IN')+' · '+esc(r.description||''):esc(r.description||r.image||r.video||'')}</p><p>${r.active===false?'Hidden':'Visible'}</p></div><div class="admin-item-actions"><button class="admin-btn light" data-edit="${i}">Edit</button><button class="admin-btn danger" data-delete="${i}">Delete</button></div></article>`).join('');}
  $('#itemsView').addEventListener('click',e=>{const ed=e.target.closest('[data-edit]'),del=e.target.closest('[data-delete]');if(ed)openEditor(Number(ed.dataset.edit));if(del){const i=Number(del.dataset.delete);if(confirm('Delete this item from the saved list?')){records.splice(i,1);renderList();status('Item removed from the editor. Click Save to publish it.');}}});
  $('#addItemBtn').onclick=()=>openEditor(-1);
