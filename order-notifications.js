@@ -1,20 +1,22 @@
 /* Supabase-only order storage and WhatsApp notification. */
 (function () {
-  const supaConfig = window.JOEL_SUPABASE_CONFIG || {};
-  const orderConfig = window.JOEL_ORDER_CONFIG || {};
+  function getConfig() { return window.JOEL_SUPABASE_CONFIG || {}; }
   function client() {
-    if (!window.supabase || !supaConfig.url || !supaConfig.anonKey) throw new Error("Supabase is not configured. Refresh and try again.");
-    return window.supabase.createClient(supaConfig.url, supaConfig.anonKey);
+    const config = getConfig();
+    if (!window.supabase || !config.url || !config.anonKey) throw new Error("Supabase is not configured. Check supabase-config.js and script loading order.");
+    return window.supabase.createClient(config.url, config.anonKey);
   }
   function openWhatsApp(message) {
+    const orderConfig = window.JOEL_ORDER_CONFIG || {};
     const phone = String(orderConfig.ownerWhatsApp || "918610493135").replace(/[^0-9]/g, "");
     const url = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
     const tab = window.open(url, "_blank");
     if (!tab) window.location.assign(url);
   }
   async function uploadOrderFiles(args) {
+    const config = getConfig();
     const db = client();
-    const bucket = supaConfig.bucket || "joel-site-media";
+    const bucket = config.bucket || "joel-site-media";
     const files = args.files || [];
     const result = [];
     for (let i = 0; i < files.length; i++) {
