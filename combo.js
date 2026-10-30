@@ -35,28 +35,26 @@ function makeContactSheet(previewFiles,orderId){
   return new Promise(async(resolve,reject)=>{try{const cols=2,cellW=500,cellH=760,rows=Math.ceil(previewFiles.length/cols),canvas=document.createElement('canvas');canvas.width=cols*cellW;canvas.height=rows*cellH;const ctx=canvas.getContext('2d');ctx.fillStyle='#f7f3eb';ctx.fillRect(0,0,canvas.width,canvas.height);for(let i=0;i<previewFiles.length;i++){const url=URL.createObjectURL(previewFiles[i]);try{const im=await new Promise((res,rej)=>{const img=new Image();img.onload=()=>res(img);img.onerror=rej;img.src=url});const x=(i%cols)*cellW,y=Math.floor(i/cols)*cellH;const scale=Math.min((cellW-24)/im.width,(cellH-24)/im.height);const w=im.width*scale,h=im.height*scale;ctx.drawImage(im,x+(cellW-w)/2,y+(cellH-h)/2,w,h)}finally{URL.revokeObjectURL(url)}}canvas.toBlob(blob=>blob?resolve(new File([blob],`${orderId}-all-frame-previews.png`,{type:'image/png'})):reject(new Error('Could not create preview sheet')),'image/png') }catch(e){reject(e)}})
 }
 $('#sendComboOrder').onclick=async()=>{
- const button=$('#sendComboOrder');
- if(location.protocol==='file:'){const status=$('#comboOrderStatus');status.hidden=false;status.innerHTML='For security reasons, Chrome blocks exporting frame preview images when this page is opened directly from a File path. Close this tab and open <strong>START-JOEL-WEBSITE.bat</strong> from the website folder, then use the localhost page it opens.';status.scrollIntoView({behavior:'smooth',block:'nearest'});return;}
+ const button=$('#sendComboOrder'),status=$('#comboOrderStatus');
  const name=$('#comboCustomerName').value.trim(),phone=$('#comboCustomerPhone').value.trim(),address=$('#comboCustomerAddress').value.trim();
  if(!name||!phone||!address){alert('Please enter your name, mobile number and address.');return}
  const missing=slots.findIndex(s=>!s.file);
- if(missing>=0){current=missing;updatePreview();renderSummary();alert(`Please add a photo for Frame ${missing+1} (${slots[missing].size}) before sending.`);document.querySelector('.combo-builder-grid').scrollIntoView({behavior:'smooth'});return}
- const orderId=makeOrderId();
- const details=slots.map((s,i)=>`${i+1}. ${s.size} frame\n   Frame design: ${DESIGNS[s.design][0]}\n   Original photo: ${s.file.name}\n   Preview image: ${orderId}-frame-${String(i+1).padStart(2,'0')}-preview.png`).join('\n');
- const msg=`NEW JOEL FRAME WORK'S COMBO ORDER\nOrder ID: ${orderId}\nCombo: ${combo.name}\nTotal frames: ${slots.length}\nCombo price: ₹${combo.price.toLocaleString('en-IN')}\n\nFRAME-BY-FRAME SELECTIONS\n${details}\n\nCUSTOMER DETAILS\nName: ${name}\nMobile: ${phone}\nAddress: ${address}\n\nPlease confirm photo crop, selected frame designs, availability and delivery before production. Original photos and matching frame-preview images are included in the order email ZIP.`;
- const status=$('#comboOrderStatus');status.hidden=false;button.disabled=true;button.textContent='Preparing order images…';let waWindow=null;
+ if(missing>=0){current=missing;updatePreview();renderSummary();alert('Please add a photo for Frame '+(missing+1));return}
+ const orderId=makeOrderId();status.hidden=false;button.disabled=true;button.textContent='Uploading to Supabase…';
  try{
-   const previews=[];for(let i=0;i<slots.length;i++)previews.push(await imageFileToPreview(slots[i],i,orderId));
-   const sheet=await makeContactSheet(previews,orderId);const attachments=[];
-   slots.forEach((slot,i)=>{const ext=(slot.file.name.split('.').pop()||'jpg').toLowerCase();attachments.push(new File([slot.file],`${orderId}-frame-${String(i+1).padStart(2,'0')}-original.${ext}`,{type:slot.file.type||'image/jpeg'}));attachments.push(previews[i])});attachments.push(sheet);
-   let result={sent:false,reason:'Email integration is unavailable.'};
-   if(window.JoelOrderNotifications){try{button.textContent='Sending email with images…';result=await window.JoelOrderNotifications.sendEmail({subject:`${combo.name} order ${orderId} — Joel Frame Work's`,message:msg,files:attachments,previewFile:sheet})}catch(emailErr){result={sent:false,reason:emailErr.message||'Email sending failed.'}}}
-   
-   const waMsg=`New Joel Frame Work's order notification\nOrder ID: ${orderId}\n${combo.name} · ₹${combo.price.toLocaleString('en-IN')}\nCustomer: ${name}\nMobile: ${phone}\nAddress: ${address}\nOriginal filenames: ${slots.map((s,i)=>`Frame ${i+1}: ${s.file.name}`).join('; ')}\n${result.sent?'Order details, original photos and customized frame previews sent to '+window.JoelOrderNotifications.ownerEmail+'.':'Email not sent: '+result.reason+' The order ZIP contains the original photos and customized previews.'}\nPlease review the order.`;
-   let shareResult={mode:'not-needed'};
-   if(!result.sent){shareResult=await window.JoelOrderNotifications.shareOrderFiles({files:attachments,message:waMsg,filename:`${orderId}-combo-order-files.zip`});if(shareResult.mode==='downloaded')window.JoelOrderNotifications.openWhatsApp(waMsg+`\n\nIMPORTANT: Attach the downloaded file ${shareResult.fileName} to this chat before pressing Send.`)}else window.JoelOrderNotifications.openWhatsApp(waMsg);
-   status.innerHTML=result.sent?`<strong>Email sent to ${esc(window.JoelOrderNotifications.ownerEmail)}.</strong><br>Order ${esc(orderId)} includes the original photos, every individual frame preview, a combined preview image and order details in a ZIP. WhatsApp opened with an order notification.`:shareResult.mode==='shared'?`<strong>Order ${esc(orderId)} ready to share.</strong><br>The ZIP contains all original photos, individual customized frame previews, the combined preview and order details. Choose WhatsApp in the share sheet, then select the owner's chat.`:shareResult.mode==='cancelled'?`<strong>Sharing was cancelled.</strong><br>Your order files were not sent. Press the order button again to retry.`:`<strong>Order ${esc(orderId)} prepared, but email was not sent.</strong><br>${esc(result.reason)} One ZIP file (${esc(shareResult.fileName)}) was downloaded instead of downloading every image separately. WhatsApp opened with the message; attach the ZIP before pressing Send. WhatsApp web links cannot attach files automatically. Configure EmailJS for automatic email delivery.`;
- }catch(err){if(waWindow&&!waWindow.closed)waWindow.close();console.error(err);status.innerHTML=`Order ${esc(orderId)} could not be fully prepared: ${esc(err.message||'Please try again.')}`}
- finally{button.disabled=false;button.textContent='Email order with images + WhatsApp notification';status.scrollIntoView({behavior:'smooth',block:'nearest'})}
+  const previews=[];
+  for(let i=0;i<slots.length;i++)previews.push(await imageFileToPreview(slots[i],i,orderId));
+  const sheet=await makeContactSheet(previews,orderId),uploadFiles=[];
+  slots.forEach((slot,i)=>{const ext=(slot.file.name.split('.').pop()||'jpg').toLowerCase();uploadFiles.push(new File([slot.file],orderId+'-frame-'+(i+1)+'-original.'+ext,{type:slot.file.type||'image/jpeg'}));uploadFiles.push(previews[i])});
+  uploadFiles.push(sheet);
+  const links=await window.JoelOrderNotifications.uploadOrderFiles({orderId,files:uploadFiles});
+  const frames=slots.map((slot,i)=>({frame:i+1,size:slot.size,design:DESIGNS[slot.design][0],original:links[i*2].url,preview:links[i*2+1].url}));
+  const details={comboId:id,comboName:combo.name,frames:frames,contactSheet:links[links.length-1].url};
+  await window.JoelOrderNotifications.saveOrder({orderId,orderType:'combo',customer:{name,phone,address},totalPrice:combo.price,details,imageLinks:links});
+  const lines=frames.map(f=>'Frame '+f.frame+' '+f.size+' '+f.design+'\nOriginal: '+f.original+'\nPreview: '+f.preview).join('\n\n');
+  const message='NEW JOEL FRAME WORK COMBO ORDER\nOrder ID: '+orderId+'\nCombo: '+combo.name+'\nPrice: ₹'+combo.price+'\nCustomer: '+name+'\nPhone: '+phone+'\nAddress: '+address+'\n\n'+lines+'\n\nCombined preview: '+details.contactSheet+'\nSaved in Supabase.';
+  window.JoelOrderNotifications.openWhatsApp(message);
+  status.innerHTML='<strong>Order '+esc(orderId)+' saved in Supabase.</strong><br>WhatsApp opened with all original photo and preview links.';
+ }catch(e){console.error(e);status.textContent='Order failed: '+(e.message||String(e))}
+ finally{button.disabled=false;button.textContent='Order Now · Send to WhatsApp';status.scrollIntoView({behavior:'smooth',block:'nearest'})}
 };
-updatePreview();renderSummary();
