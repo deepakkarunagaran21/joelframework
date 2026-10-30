@@ -208,6 +208,9 @@ function wireMediaAssets(root=document){
 }
 wireMediaAssets();
 
+// Make the media setup callable by the Supabase content renderer.
+window.wireMediaAssets = wireMediaAssets;
+
 // Supabase replaces gallery/project/video cards after page load. Watch for those
 // new elements and attach the same load/error handling before they can stay hidden.
 if('MutationObserver' in window){
