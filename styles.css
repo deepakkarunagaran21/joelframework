@@ -972,3 +972,77 @@ img,video{max-width:100%}
     margin-top:16px;
   }
 }
+
+/* V19 — keep gallery, project and video media stable after dynamic Supabase rendering. */
+.gallery-slot>img,
+.project-slot>img,
+.video-slot>img{
+  position:absolute!important;
+  inset:0!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  opacity:0;
+  z-index:0;
+  transition:opacity .25s ease;
+}
+.gallery-slot>img.asset-loaded,
+.project-slot>img.asset-loaded,
+.video-slot>img.asset-loaded{
+  opacity:1!important;
+}
+.gallery-slot>.media-fallback,
+.project-slot>.media-fallback,
+.video-slot>.media-fallback{
+  position:absolute!important;
+  inset:0!important;
+  z-index:1;
+  display:flex!important;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  text-align:center;
+  background:linear-gradient(145deg,#f8f4ec,#e8dcc8);
+  color:#665f55;
+  pointer-events:none;
+}
+.gallery-slot img.asset-loaded~.media-fallback,
+.project-slot img.asset-loaded~.media-fallback,
+.video-slot img.asset-loaded~.media-fallback,
+.video-slot video.asset-loaded~.media-fallback{
+  display:none!important;
+}
+.gallery-slot>.media-fallback span,
+.project-slot>.media-fallback span,
+.video-slot>.media-fallback span{
+  font-size:11px;
+  line-height:1.4;
+  font-weight:800;
+  letter-spacing:1.7px;
+}
+.gallery-slot>.media-fallback small,
+.project-slot>.media-fallback small,
+.video-slot>.media-fallback small{
+  display:block;
+  max-width:90%;
+  margin-top:8px;
+  font-size:10px;
+  line-height:1.5;
+  color:#7b7164;
+}
+.video-slot>video{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.video-slot>video.asset-loaded{display:block!important}
+@media(prefers-reduced-motion:reduce){
+  .gallery-slot>img,.project-slot>img,.video-slot>img{transition:none}
+}
