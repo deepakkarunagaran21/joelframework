@@ -282,6 +282,17 @@ if(chat&&chatToggle){
 document.querySelectorAll('.social-float').forEach(a=>a.addEventListener('click',()=>{a.blur();}));
 
 /* Header product search */
+
+// Mobile header search toggle
+const mobileSearchToggle=$('.mobile-search-toggle');
+if(mobileSearchToggle&&searchForm&&searchInput){
+ mobileSearchToggle.addEventListener('click',()=>{
+  const open=searchForm.classList.toggle('mobile-search-open');
+  mobileSearchToggle.setAttribute('aria-expanded',String(open));
+  if(open) searchInput.focus(); else searchResults.hidden=true;
+ });
+}
+
 const searchForm=$('#siteSearch'),searchInput=$('#productSearch'),searchResults=$('#searchResults');
 if(searchForm&&searchInput&&searchResults){
  const renderSearch=()=>{
