@@ -1389,3 +1389,24 @@ footer .footer-links a{color:#f7f4ee}
  .combo-carousel .combo-offer-copy strong{font-size:29px}
  .combo-carousel-arrow{display:none}
 }
+
+
+/* Header search visibility and reliable desktop combo slider sizing */
+@media(min-width:601px){
+ body .site-header .header-quick-links .mobile-search-toggle{display:none!important}
+}
+@media(max-width:600px){
+ body .site-header .header-quick-links .mobile-search-toggle{display:flex!important}
+}
+.combo-carousel{padding-left:42px;padding-right:42px}
+.combo-carousel-viewport{display:block;width:100%;max-width:100%;min-width:0}
+.combo-carousel .combo-offer-grid{display:flex!important;flex-wrap:nowrap!important;width:100%!important;min-width:100%!important;gap:20px!important}
+.combo-carousel .combo-offer-card{flex:0 0 calc((100% - 40px)/3)!important;min-width:0!important}
+@media(max-width:900px) and (min-width:601px){
+ .combo-carousel .combo-offer-card{flex-basis:calc((100% - 20px)/2)!important}
+}
+@media(max-width:600px){
+ .combo-carousel{padding-left:4px;padding-right:4px}
+ .combo-carousel .combo-offer-grid{width:max-content!important;min-width:100%!important;gap:14px!important}
+ .combo-carousel .combo-offer-card{flex:0 0 min(78vw,330px)!important;min-width:0!important}
+}
