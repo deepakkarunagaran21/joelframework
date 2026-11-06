@@ -1363,3 +1363,29 @@ footer .footer-links a{color:#f7f4ee}
  body .hero .hero-dots .dot{width:8px!important;height:8px!important;background:rgba(255,255,255,.65)!important}
  body .hero .hero-dots .dot.active{background:#fff!important}
 }
+
+
+/* Combo offers: responsive product-style sliding carousel */
+.combo-carousel{position:relative;width:100%;padding:0 42px;box-sizing:border-box}
+.combo-carousel-viewport{width:100%;overflow-x:auto;overflow-y:hidden;scroll-behavior:smooth;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.combo-carousel-viewport::-webkit-scrollbar{display:none}
+.combo-carousel .combo-offer-grid{display:flex!important;gap:20px!important;width:max-content;min-width:100%;padding:4px 2px 18px;box-sizing:border-box}
+.combo-carousel .combo-offer-card{flex:0 0 calc((min(100vw - 180px, 1280px) - 40px)/3);min-width:250px;scroll-snap-align:start}
+.combo-carousel .combo-offer-card>a{height:100%;display:flex;flex-direction:column}
+.combo-carousel .combo-offer-card img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.combo-carousel-arrow{position:absolute;top:42%;transform:translateY(-50%);z-index:5;width:36px;height:36px;border:1px solid #d8c7aa;border-radius:50%;background:#fff;color:#5b3b1b;font-size:27px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.1)}
+.combo-carousel-arrow.prev{left:0}.combo-carousel-arrow.next{right:0}
+@media(max-width:900px){
+ .combo-carousel{padding:0 34px}
+ .combo-carousel .combo-offer-card{flex-basis:calc((100vw - 150px)/2);min-width:230px}
+}
+@media(max-width:600px){
+ .combo-offers-section{overflow:hidden}
+ .combo-carousel{padding:0 4px}
+ .combo-carousel .combo-offer-grid{gap:14px!important;padding:4px 0 16px}
+ .combo-carousel .combo-offer-card{flex:0 0 min(78vw,330px);min-width:0}
+ .combo-carousel .combo-offer-card img{aspect-ratio:4/5}
+ .combo-carousel .combo-offer-copy{padding:14px 15px 17px}
+ .combo-carousel .combo-offer-copy strong{font-size:29px}
+ .combo-carousel-arrow{display:none}
+}
