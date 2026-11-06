@@ -1242,3 +1242,58 @@ footer .footer-links a{color:#f7f4ee}
  .hero h1{font-size:34px}
  .hero-slides{height:280px}
 }
+
+
+/* FINAL mobile header positioning override */
+@media screen and (max-width:600px){
+ body .site-header{position:sticky!important;top:0!important;z-index:999!important}
+ body .site-header .nav-wrap{
+  position:relative!important;display:grid!important;
+  grid-template-columns:42px minmax(0,1fr) 88px!important;
+  grid-template-rows:72px!important;gap:6px!important;
+  width:100%!important;height:72px!important;min-height:72px!important;
+  padding:4px 12px!important;margin:0!important;align-items:center!important;
+  box-sizing:border-box!important;
+ }
+ body .site-header .menu{
+  display:flex!important;visibility:visible!important;opacity:1!important;
+  position:static!important;grid-column:1!important;grid-row:1!important;
+  justify-self:start!important;align-self:center!important;
+  width:38px!important;height:42px!important;margin:0!important;padding:0!important;
+  align-items:center!important;justify-content:center!important;
+  font-size:25px!important;line-height:1!important;z-index:1001!important;
+ }
+ body .site-header .brand{
+  display:flex!important;position:static!important;grid-column:2!important;grid-row:1!important;
+  justify-self:center!important;align-self:center!important;width:auto!important;
+  min-width:0!important;margin:0!important;padding:0!important;
+ }
+ body .site-header .brand-logo-image{
+  display:block!important;width:108px!important;height:60px!important;
+  object-fit:contain!important;object-position:center!important;
+ }
+ body .site-header .header-main,body .site-header .header-tools{display:contents!important}
+ body .site-header .site-search{display:none!important}
+ body .site-header .header-quick-links{
+  display:flex!important;position:static!important;grid-column:3!important;grid-row:1!important;
+  justify-self:end!important;align-self:center!important;width:88px!important;
+  height:48px!important;margin:0!important;padding:0!important;
+  flex-direction:row!important;align-items:center!important;justify-content:flex-end!important;
+  gap:12px!important;transform:none!important;
+ }
+ body .site-header .header-quick-links a{
+  display:flex!important;position:static!important;float:none!important;
+  flex:0 0 34px!important;width:34px!important;height:42px!important;
+  margin:0!important;padding:0!important;align-items:center!important;justify-content:center!important;
+ }
+ body .site-header .header-quick-links a span{display:block!important;font-size:23px!important;line-height:1!important}
+ body .site-header .header-quick-links a small{display:none!important}
+ body .site-header .nav{display:none!important}
+ body .site-header .nav.mobile-open{display:flex!important;position:absolute!important;top:100%!important;left:0!important;right:0!important;z-index:1000!important;flex-direction:column!important;padding:12px 20px!important;background:#f7f4ee!important}
+}
+@media screen and (max-width:380px){
+ body .site-header .nav-wrap{grid-template-columns:36px minmax(0,1fr) 80px!important;padding-left:9px!important;padding-right:9px!important}
+ body .site-header .brand-logo-image{width:98px!important}
+ body .site-header .header-quick-links{width:80px!important;gap:8px!important}
+ body .site-header .header-quick-links a{flex-basis:32px!important;width:32px!important}
+}
