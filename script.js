@@ -283,17 +283,17 @@ document.querySelectorAll('.social-float').forEach(a=>a.addEventListener('click'
 
 /* Header product search */
 
-// Mobile header search toggle
+const searchForm=$('#siteSearch'),searchInput=$('#productSearch'),searchResults=$('#searchResults');
+
+// Mobile-only header search toggle (declare form elements before binding).
 const mobileSearchToggle=$('.mobile-search-toggle');
 if(mobileSearchToggle&&searchForm&&searchInput){
  mobileSearchToggle.addEventListener('click',()=>{
   const open=searchForm.classList.toggle('mobile-search-open');
   mobileSearchToggle.setAttribute('aria-expanded',String(open));
-  if(open) searchInput.focus(); else searchResults.hidden=true;
+  if(open){searchInput.focus();}else{searchResults.hidden=true;searchInput.value='';}
  });
 }
-
-const searchForm=$('#siteSearch'),searchInput=$('#productSearch'),searchResults=$('#searchResults');
 if(searchForm&&searchInput&&searchResults){
  const renderSearch=()=>{
   const q=searchInput.value.trim().toLowerCase();
