@@ -280,3 +280,18 @@ if(chat&&chatToggle){
 
 // Make floating social buttons work even when the site is opened from a local file.
 document.querySelectorAll('.social-float').forEach(a=>a.addEventListener('click',()=>{a.blur();}));
+
+/* Header product search */
+const searchForm=$('#siteSearch'),searchInput=$('#productSearch'),searchResults=$('#searchResults');
+if(searchForm&&searchInput&&searchResults){
+ const renderSearch=()=>{
+  const q=searchInput.value.trim().toLowerCase();
+  if(!q){searchResults.hidden=true;searchResults.innerHTML='';return;}
+  const matches=(typeof PRODUCTS!=='undefined'?PRODUCTS:[]).filter(p=>[p.name,p.size,p.label,p.finish].join(' ').toLowerCase().includes(q));
+  searchResults.innerHTML=matches.length?matches.map(p=>'<a href="product.html?id='+encodeURIComponent(p.id)+'"><span>'+p.name+'</span><small>'+p.size+' · ₹'+Number(p.price).toLocaleString('en-IN')+'</small></a>').join(''):'<div class="search-empty">No matching frames found.</div>';
+  searchResults.hidden=false;
+ };
+ searchInput.addEventListener('input',renderSearch);
+ searchForm.addEventListener('submit',e=>{e.preventDefault();const first=searchResults.querySelector('a');if(first)location.href=first.href;else if(searchInput.value.trim())location.href='products.html';});
+ document.addEventListener('click',e=>{if(!searchForm.contains(e.target))searchResults.hidden=true;});
+}
