@@ -1789,3 +1789,8 @@ footer .footer-links a{color:#f7f4ee}
  .updated-size-cards .select-size{grid-column:1/-1;margin-top:14px;padding:12px;font-size:9px}
  .updated-size-cards .price-card.highlighted{transform:none}
 }
+
+/* Mobile only: hide the three promotional size cards; retain the full desktop layout */
+@media(max-width:620px){
+  .sizes-section .updated-size-cards{display:none!important}
+}
