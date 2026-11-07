@@ -1,3 +1,4 @@
+const FRAME_SIZE_VARIANTS = [{"size":"10 × 8","price":300},{"size":"12 × 8","price":350},{"size":"12 × 10","price":380},{"size":"15 × 10","price":500},{"size":"15 × 12","price":580},{"size":"18 × 12","price":750},{"size":"20 × 16","price":1000},{"size":"20 × 30","price":2500}];
 const PRODUCTS = [
  {id:'frame-10x8', name:'Classic Portrait Frame', size:'10 × 8', price:300, photos:1, finish:'Ivory & Gold', image:'assets/cover-10x8.png', label:'EVERYDAY'},
  {id:'frame-12x8', name:'Classic Memory Frame', size:'12 × 8', price:350, photos:1, finish:'Ivory & Gold', image:'assets/cover-12x8.png', label:'POPULAR'},
