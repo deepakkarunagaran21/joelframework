@@ -1654,3 +1654,35 @@ footer .footer-links a{color:#f7f4ee}
  .combo-carousel .combo-offer-card img{border-width:6px;outline-offset:-11px}
  .combo-carousel .combo-offer-copy{padding:14px 13px 16px}
 }
+
+
+/* FrameKala-inspired split About Us showcase */
+.about-showcase{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);min-height:570px;background:#65482e;overflow:hidden}
+.about-showcase-image{position:relative;min-height:570px;background:#e9e0d3;overflow:hidden}
+.about-showcase-image:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(25,18,12,.25),transparent 42%)}
+.about-showcase-image img{width:100%;height:100%;min-height:570px;display:block;object-fit:cover}
+.about-image-caption{position:absolute;z-index:1;left:7%;bottom:30px;color:#fff;font-size:10px;letter-spacing:3px;font-weight:700}
+.about-showcase-panel{display:flex;align-items:center;padding:clamp(42px,6vw,88px);background:#65482e;color:#fff}
+.about-showcase-content{max-width:590px}
+.about-showcase .eyebrow{color:#e2c58f;font-size:10px;letter-spacing:3px;font-weight:700;margin:0 0 22px}
+.about-showcase h2{font-family:'Playfair Display',serif;font-size:clamp(36px,4vw,56px);line-height:1.12;font-weight:500;margin:0 0 24px;color:#fff}
+.about-showcase h2 em{font-style:italic;color:#e4c58d}
+.about-showcase-content>p:not(.eyebrow){font-size:14px;line-height:1.9;color:rgba(255,255,255,.82);margin:0 0 16px}
+.about-showcase-content .about-lead{font-size:17px!important;line-height:1.65!important;color:#fff!important}
+.about-values{display:grid;gap:0;margin:30px 0;border-top:1px solid rgba(255,255,255,.22)}
+.about-values>div{display:flex;align-items:center;gap:18px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.22)}
+.about-values strong{font-family:'Playfair Display',serif;color:#e4c58d;font-size:20px;font-weight:500}
+.about-values span{font-size:12px;letter-spacing:.4px;color:rgba(255,255,255,.9)}
+.about-showcase-link{display:inline-flex;align-items:center;gap:25px;padding:15px 19px;border:1px solid #d9bb83;color:#fff;font-size:10px;font-weight:700;letter-spacing:1.5px;transition:background .2s,color .2s}
+.about-showcase-link:hover{background:#e4c58d;color:#332619}
+.about-showcase-link span{font-size:18px}
+@media(max-width:760px){
+ .about-showcase{grid-template-columns:1fr}
+ .about-showcase-image{min-height:300px;height:42vh;max-height:420px}
+ .about-showcase-image img{min-height:300px}
+ .about-showcase-panel{padding:38px 7% 44px}
+ .about-showcase h2{font-size:clamp(34px,9vw,46px)}
+ .about-showcase-content .about-lead{font-size:15px!important}
+ .about-showcase-content>p:not(.eyebrow){font-size:13px}
+ .about-values{margin:22px 0}
+}
