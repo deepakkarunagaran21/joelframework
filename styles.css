@@ -1611,3 +1611,46 @@ footer .footer-links a{color:#f7f4ee}
  .frame-product-benefits{font-size:11px;line-height:1.8}
  .frame-order-details{padding:15px;margin-top:16px}
 }
+
+
+/* Combo offers: premium framed poster cards */
+.combo-offers-section{background:#f6f1e8}
+.combo-carousel .combo-offer-card{
+  background:#fff;
+  border:1px solid #b9975d;
+  padding:7px;
+  box-shadow:0 12px 30px rgba(54,42,25,.10);
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+.combo-carousel .combo-offer-card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 18px 38px rgba(54,42,25,.17);
+}
+.combo-carousel .combo-offer-card>a{
+  border:1px solid #e3d4b7;
+  background:#fff;
+}
+.combo-carousel .combo-offer-card img{
+  display:block;
+  width:100%;
+  aspect-ratio:4/5;
+  object-fit:cover;
+  border:8px solid #eee4d2;
+  outline:1px solid #b9975d;
+  outline-offset:-13px;
+}
+.combo-carousel .combo-offer-copy{
+  padding:18px 17px 20px;
+  border-top:1px solid #e9dfce;
+}
+.combo-carousel .combo-offer-copy>span{letter-spacing:2px}
+.combo-carousel .combo-offer-copy strong{color:#2b2722}
+.combo-carousel .combo-offer-copy b{
+  color:#8b672f;
+  border-top:1px solid #e9dfce;
+}
+@media(max-width:600px){
+ .combo-carousel .combo-offer-card{padding:6px}
+ .combo-carousel .combo-offer-card img{border-width:6px;outline-offset:-11px}
+ .combo-carousel .combo-offer-copy{padding:14px 13px 16px}
+}
