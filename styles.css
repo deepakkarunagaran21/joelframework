@@ -1913,3 +1913,16 @@ footer .footer-links a{color:#f7f4ee}
 .checkout-success-link{display:block;text-align:center;margin-top:14px;padding:13px;background:#f3ead9;color:#5d4625;font-size:10px;font-weight:700;text-decoration:none}
 @media(max-width:760px){.checkout-main{padding:18px 0 54px}.checkout-progress{margin-bottom:24px}.checkout-layout{grid-template-columns:1fr;gap:8px}.checkout-summary{position:static;grid-row:1}.checkout-left{grid-row:2}.checkout-card,.checkout-summary{padding:18px}.checkout-heading h1{font-size:32px}.checkout-card-title h2{font-size:21px}}
 @media(max-width:420px){.checkout-two-fields{grid-template-columns:1fr}.secure-lock{font-size:8px}.checkout-summary-thumb{width:56px;height:60px}}
+
+/* Three-stage checkout refinements */
+.checkout-photo-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:18px}
+.checkout-photo-row{display:grid;gap:7px;border:1px solid #e8dfd2;padding:9px;background:#fff}
+.checkout-photo-row img{width:100%;height:120px;object-fit:cover;background:#f5f1e9}
+.checkout-photo-row span{font-size:10px;color:#71695f}
+.checkout-address-form{margin-top:8px}
+.checkout-address-form label{font-size:12px}
+.checkout-address-form input{min-height:46px}
+.checkout-address-form textarea{min-height:110px}
+.checkout-address-form .checkout-pay-button{margin-top:8px}
+.checkout-page .site-header{border-bottom:1px solid #e8dfd2}
+@media(max-width:620px){.checkout-photo-list{grid-template-columns:repeat(2,minmax(0,1fr))}.checkout-photo-row img{height:100px}}
