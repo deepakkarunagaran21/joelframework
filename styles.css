@@ -1851,3 +1851,65 @@ footer .footer-links a{color:#f7f4ee}
  .project-card b{font-size:17px}
  .project-card span{font-size:9px}
 }
+
+
+/* Checkout flow — Joel Frame Works */
+.checkout-page{background:#f5f1e9;color:#28231e}
+.checkout-main{padding:26px 0 82px;min-height:68vh}
+.checkout-container{max-width:1120px}
+.checkout-progress{display:flex;align-items:center;justify-content:center;gap:12px;margin:6px auto 36px;max-width:420px}
+.checkout-progress>i{height:2px;background:#d8cbb7;flex:1;max-width:92px}
+.checkout-step{display:grid;justify-items:center;gap:6px;color:#82796d;min-width:48px}
+.checkout-step>span{width:30px;height:30px;border:1px solid #c9bdab;border-radius:50%;display:grid;place-items:center;background:#fff;font-size:12px}
+.checkout-step.is-done>span{background:#278e58;color:#fff;border-color:#278e58}
+.checkout-step.is-current>span{background:#292522;color:#fff;border-color:#292522}
+.checkout-step small{font-size:10px;font-weight:600}
+.checkout-layout{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:28px;align-items:start}
+.checkout-heading{margin:0 0 20px}
+.checkout-heading .eyebrow{color:#a47b3e;margin-bottom:9px}
+.checkout-heading h1{font:600 clamp(30px,4vw,42px)/1.1 'Playfair Display',serif;margin:0;color:#29231e}
+.checkout-heading>p:last-child{font-size:13px;color:#746b60;margin:10px 0 0}
+.checkout-card{background:#fffdfa;border:1px solid #e4dacb;padding:24px;margin-bottom:18px;box-shadow:0 10px 28px rgba(51,39,25,.045)}
+.checkout-card-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:20px}
+.checkout-card-title h2{font:600 23px 'Playfair Display',serif;margin:0;color:#2d2822}
+.checkout-card-title>span{font-size:9px;letter-spacing:1.4px;color:#a27b42;font-weight:700}
+.checkout-address-form{display:grid;gap:14px}
+.checkout-address-form label{display:grid;gap:7px;font-size:11px;color:#5f574d;font-weight:600}
+.checkout-address-form input,.checkout-address-form textarea{width:100%;border:1px solid #d9d0c3;background:#fff;padding:13px 14px;border-radius:2px;font:400 13px 'DM Sans',sans-serif;color:#28231e;outline:none}
+.checkout-address-form textarea{min-height:88px;resize:vertical}
+.checkout-address-form input:focus,.checkout-address-form textarea:focus{border-color:#b88b3e;box-shadow:0 0 0 2px rgba(184,139,62,.1)}
+.checkout-two-fields{display:grid;grid-template-columns:1.3fr .7fr;gap:12px}
+.checkout-address-note{background:#f7f2e9;padding:12px 14px;color:#746b60;font-size:11px;line-height:1.55}
+.razorpay-mark{display:flex;align-items:center;gap:12px;padding:15px;background:#f7f3ec;border:1px solid #e8dfd2}
+.razorpay-mark-symbol{width:36px;height:36px;display:grid;place-items:center;background:#292522;color:#e4c17c;font:700 23px 'Playfair Display',serif}
+.razorpay-mark>div{display:grid;gap:4px;flex:1}
+.razorpay-mark strong{font-size:12px;color:#29231e}
+.razorpay-mark small{font-size:9px;color:#766e63;line-height:1.4}
+.secure-lock{font-size:9px;color:#278e58;font-weight:700;white-space:nowrap}
+.checkout-muted{font-size:11px;color:#766e63;line-height:1.6}
+.checkout-pay-button{width:100%;padding:17px 20px;background:#252321;border:1px solid #252321;color:#fff;font-weight:700;font-size:11px;letter-spacing:1px;display:flex;justify-content:space-between;cursor:pointer}
+.checkout-pay-button:hover{background:#a47b42;border-color:#a47b42}
+.checkout-pay-button:disabled{opacity:.6;cursor:wait}
+.checkout-terms{font-size:9px;color:#898075;text-align:center;margin:12px 0 0}
+.checkout-status{padding:13px 15px;margin:14px 0;background:#edf7ef;border-left:3px solid #278e58;color:#245c3a;font-size:11px;line-height:1.6;overflow-wrap:anywhere}
+.checkout-status.is-error{background:#fff2ed;border-color:#b94d36;color:#883523}
+.checkout-summary{background:#fffdfa;border:1px solid #e4dacb;padding:24px;position:sticky;top:110px;box-shadow:0 10px 28px rgba(51,39,25,.045)}
+.checkout-summary .checkout-card-title{margin-bottom:16px}
+.checkout-summary-product{display:flex;gap:13px;align-items:center;padding:16px 0;border-top:1px solid #eee7dc;border-bottom:1px solid #eee7dc}
+.checkout-summary-thumb{width:66px;height:70px;display:grid;place-items:center;background:linear-gradient(135deg,#3a3028,#a77d42);color:#f3dfb5;font:600 18px 'Playfair Display',serif}
+.checkout-summary-product>div:last-child{display:grid;gap:5px;min-width:0}
+.checkout-summary-product strong{font-size:12px;color:#29231e}
+.checkout-summary-product small{font-size:10px;color:#7b7267;overflow-wrap:anywhere}
+.checkout-summary-lines{display:grid;gap:15px;padding:20px 0}
+.checkout-summary-lines>div{display:flex;justify-content:space-between;gap:12px;font-size:11px;color:#71695f}
+.checkout-summary-lines strong{font-size:11px;color:#2d2822}
+.checkout-summary-lines .checkout-free{color:#8b744c}
+.checkout-summary-lines .checkout-total{padding-top:16px;border-top:1px solid #e9e1d6;color:#29231e;font-weight:700}
+.checkout-summary-lines .checkout-total strong{font-size:19px}
+.checkout-trust{display:flex;gap:10px;background:#f5f1e9;padding:12px;color:#625a50}
+.checkout-trust span{color:#278e58;font-weight:700}
+.checkout-trust p{font-size:10px;line-height:1.55;margin:0}
+.checkout-back-link{display:inline-block;margin-top:18px;color:#8d6834;font-size:10px;font-weight:700}
+.checkout-success-link{display:block;text-align:center;margin-top:14px;padding:13px;background:#f3ead9;color:#5d4625;font-size:10px;font-weight:700;text-decoration:none}
+@media(max-width:760px){.checkout-main{padding:18px 0 54px}.checkout-progress{margin-bottom:24px}.checkout-layout{grid-template-columns:1fr;gap:8px}.checkout-summary{position:static;grid-row:1}.checkout-left{grid-row:2}.checkout-card,.checkout-summary{padding:18px}.checkout-heading h1{font-size:32px}.checkout-card-title h2{font-size:21px}}
+@media(max-width:420px){.checkout-two-fields{grid-template-columns:1fr}.secure-lock{font-size:8px}.checkout-summary-thumb{width:56px;height:60px}}
