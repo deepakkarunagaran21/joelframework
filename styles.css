@@ -1530,3 +1530,63 @@ footer .footer-links a{color:#f7f4ee}
 .combo-inline-customer textarea{grid-column:1/-1;min-height:68px}
 .combo-inline-customer #sendComboOrder{grid-column:1/-1;width:100%;min-height:48px;background:#242321;color:white;border:0;font-size:11px;font-weight:700;cursor:pointer}
 @media(max-width:760px){.combo-product-showcase{grid-template-columns:minmax(0,1fr);gap:18px}.combo-product-gallery{grid-template-columns:54px minmax(0,1fr);gap:8px}.combo-product-main-image{height:min(110vw,470px)}.combo-product-information h1{font-size:32px}.combo-inline-frame-items{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.combo-inline-upload-card{min-height:116px;padding:5px}.combo-inline-upload-copy{font-size:10px}.combo-inline-upload-button{padding:6px 8px;font-size:9px}.combo-size-pill{min-width:calc(33.333% - 6px);flex:1}.combo-inline-customer .combo-customer-fields{grid-template-columns:1fr}.combo-inline-customer textarea,.combo-inline-customer #sendComboOrder{grid-column:auto}}
+
+/* Mobile combo page: compact app-like two-column product header, full-width chooser below */
+@media(max-width:620px){
+ body.combo-page{overflow-x:hidden}
+ .combo-page .site-header .nav-wrap{height:68px;display:flex;justify-content:space-between;gap:8px}
+ .combo-page .site-header .brand-logo-image{max-width:112px;height:auto}
+ .combo-page .site-header .menu{display:block;font-size:22px}
+ .combo-page .site-header .nav-cta{display:none}
+ .combo-page .combo-builder-hero{padding:18px 0 38px}
+ .combo-page .combo-builder-hero>.container{width:94%;max-width:540px}
+ .combo-page .combo-back{display:block;font-size:12px;margin:4px 0 16px}
+ .combo-page .combo-product-showcase{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);column-gap:12px;row-gap:14px;align-items:start}
+ .combo-page .combo-product-gallery{grid-column:1;grid-row:1 / span 5;display:grid;grid-template-columns:34px minmax(0,1fr);gap:6px;align-items:start;min-width:0}
+ .combo-page .combo-product-thumbnails{display:flex;flex-direction:column;gap:5px;min-width:0}
+ .combo-page .combo-product-thumbnails button{width:34px;height:44px;padding:2px;border:1px solid #ded6ca;background:#fff;border-radius:4px;overflow:hidden}
+ .combo-page .combo-product-thumbnails img{width:100%;height:100%;object-fit:cover;display:block}
+ .combo-page .combo-product-main-image{height:auto;aspect-ratio: .78;min-width:0;overflow:hidden;background:#eee7dc;border:1px solid #e4ddd2}
+ .combo-page .combo-product-main-image img{display:block;width:100%;height:100%;object-fit:contain}
+ .combo-page .combo-product-information{display:contents}
+ .combo-page .combo-product-information>.eyebrow{grid-column:2;grid-row:1;font-size:7px;letter-spacing:1.5px;line-height:1.4;margin:0 0 2px;color:#176a6b}
+ .combo-page .combo-product-information>h1{grid-column:2;grid-row:2;font-size:clamp(21px,5.2vw,29px);line-height:1.08;margin:0;font-family:'Playfair Display',serif}
+ .combo-page .combo-product-information>.combo-price{grid-column:2;grid-row:3;font-size:23px;line-height:1.1;margin:0;color:#b88b3e}
+ .combo-page .combo-product-information>.combo-tax-note{grid-column:2;grid-row:4;font-size:9px;margin:0;color:#777}
+ .combo-page .combo-product-information>.combo-product-description{grid-column:2;grid-row:5;font-size:10px;line-height:1.45;margin:4px 0 0;color:#444}
+ .combo-page .combo-inline-builder{display:contents}
+ .combo-page .combo-inline-size{grid-column:1/-1;grid-row:6;border-top:1px solid #e7dfd3;padding-top:12px;margin:0;min-width:0}
+ .combo-page .combo-inline-size h2{font-family:'DM Sans',sans-serif;font-size:17px;font-weight:700;margin:0 0 10px}
+ .combo-page .combo-size-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+ .combo-page .combo-size-pill{min-width:0;min-height:58px;padding:7px 3px;border:1px solid #777;border-radius:7px;font-size:10px;text-align:center;white-space:normal}
+ .combo-page .combo-size-pill:first-child{background:#242321;color:#fff;border-color:#242321}
+ .combo-page .combo-size-pill small{font-size:9px}
+ .combo-page .combo-inline-uploads{grid-column:1/-1;grid-row:7;border-top:1px solid #e7dfd3;padding-top:12px;margin:0;min-width:0}
+ .combo-page .combo-inline-uploads h2{font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.3;font-weight:700;margin:0 0 10px}
+ .combo-page .combo-inline-frame-items{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+ .combo-page .combo-inline-upload-card{min-width:0;min-height:112px;padding:7px 3px;border:1px dashed #8e8e8e;border-radius:9px;gap:5px}
+ .combo-page .combo-inline-upload-icon{width:27px;height:27px;font-size:21px}
+ .combo-page .combo-inline-upload-copy{font-size:10px;line-height:1.2}
+ .combo-page .combo-inline-upload-copy span,.combo-page .combo-inline-upload-copy small{font-size:9px}
+ .combo-page .combo-inline-upload-button{font-size:9px;padding:6px 10px;border-radius:5px}
+ .combo-page .combo-upload-count{font-size:9px;margin-top:5px}
+ .combo-page .combo-inline-customer{grid-column:1/-1;grid-row:8;border-top:1px solid #e7dfd3;padding-top:12px;margin:0;min-width:0}
+ .combo-page .combo-inline-customer>.eyebrow{font-size:8px;margin-bottom:5px}
+ .combo-page .combo-inline-customer h2{font-size:19px;margin:0 0 9px}
+ .combo-page .combo-inline-customer .combo-customer-fields{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+ .combo-page .combo-inline-customer input,.combo-page .combo-inline-customer textarea{font-size:11px;padding:10px;border-radius:7px;min-width:0}
+ .combo-page .combo-inline-customer textarea{grid-column:1/-1;min-height:66px}
+ .combo-page .combo-inline-customer #sendComboOrder{grid-column:1/-1;min-height:48px;font-size:11px;border-radius:7px}
+ .combo-page footer{display:none}
+ .combo-page .float-wa{width:42px;height:42px;right:12px;bottom:12px}
+}
+@media(max-width:380px){
+ .combo-page .combo-product-showcase{column-gap:8px;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr)}
+ .combo-page .combo-product-gallery{grid-template-columns:29px minmax(0,1fr);gap:5px}
+ .combo-page .combo-product-thumbnails button{width:29px;height:39px}
+ .combo-page .combo-product-information>.eyebrow{font-size:6px}
+ .combo-page .combo-product-information>h1{font-size:21px}
+ .combo-page .combo-inline-upload-card{min-height:105px}
+ .combo-page .combo-inline-customer .combo-customer-fields{grid-template-columns:1fr}
+ .combo-page .combo-inline-customer textarea,.combo-page .combo-inline-customer #sendComboOrder{grid-column:auto}
+}
