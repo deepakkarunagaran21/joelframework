@@ -36,7 +36,7 @@
       order_id: order.orderId, order_type: order.orderType,
       customer_name: order.customer.name, customer_phone: order.customer.phone,
       customer_address: order.customer.address, total_price: order.totalPrice,
-      order_details: order.details, image_links: order.imageLinks, status: "new"
+      order_details: order.details, image_links: order.imageLinks, status: "payment_pending", payment_status: "pending"
     });
     if (result.error) throw new Error("Order database save failed: " + result.error.message);
   }
