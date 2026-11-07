@@ -1716,3 +1716,24 @@ footer .footer-links a{color:#f7f4ee}
  .about-values span{font-size:11px}
  .about-showcase-link{padding:11px 14px;font-size:9px}
 }
+
+
+/* Final compact About Us treatment */
+.about-showcase{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.about-showcase-image,.about-showcase-image img{height:340px;min-height:340px}
+.about-showcase-panel{padding:30px clamp(24px,3vw,46px)}
+.about-showcase .eyebrow{font-size:9px;margin-bottom:10px}
+.about-showcase h2{font-size:clamp(29px,2.8vw,40px);line-height:1.08;margin-bottom:12px}
+.about-showcase-content .about-lead{font-size:14px!important;line-height:1.5!important;margin-bottom:9px!important}
+.about-showcase-content>p:not(.eyebrow){font-size:12px;line-height:1.55;margin-bottom:0}
+@media(max-width:760px){
+ .about-showcase{grid-template-columns:1fr}
+ .about-showcase-image,.about-showcase-image img{height:180px;min-height:180px;max-height:180px}
+ .about-showcase-image img{object-fit:cover;object-position:center}
+ .about-image-caption{font-size:8px;bottom:12px;letter-spacing:2px}
+ .about-showcase-panel{padding:20px 6% 22px}
+ .about-showcase .eyebrow{font-size:8px;letter-spacing:1.8px;margin-bottom:8px}
+ .about-showcase h2{font-size:29px;line-height:1.08;margin-bottom:9px}
+ .about-showcase-content .about-lead{font-size:12.5px!important;line-height:1.45!important;margin-bottom:7px!important}
+ .about-showcase-content>p:not(.eyebrow){font-size:11px;line-height:1.5;margin-bottom:0}
+}
