@@ -1436,3 +1436,67 @@ footer .footer-links a{color:#f7f4ee}
 .combo-product-buy-link:hover{background:#806039}
 .combo-product-caption{font-size:11px;color:#8a8176;margin-top:14px}
 @media(max-width:760px){.combo-product-showcase{grid-template-columns:minmax(0,1fr);gap:22px;margin:18px 0 28px}.combo-product-gallery{grid-template-columns:58px minmax(0,1fr);gap:9px}.combo-product-main-image{height:min(105vw,470px)}.combo-product-information h1{font-size:36px}.combo-product-information .combo-price{font-size:28px}.combo-product-description{margin:16px 0}.combo-product-information{padding:0 2px}}
+
+
+/* Product detail typography and spacing refinement — compact FrameKala-like layout */
+.frame-product-main{padding:18px 0 56px}
+.frame-product-main>.container{max-width:1440px}
+.product-breadcrumb{font-size:11px;line-height:1.4;margin:6px 0 18px}
+.frame-product-layout{grid-template-columns:minmax(0,1fr) minmax(0,.96fr);gap:34px;align-items:start}
+.frame-product-gallery{grid-template-columns:68px minmax(0,1fr);gap:11px;top:16px}
+.frame-product-thumbs{gap:7px}
+.frame-product-thumb{padding:3px}
+.frame-product-main-image{height:min(54vw,590px);min-height:390px}
+.frame-product-info{padding:0 0 14px}
+.frame-product-info>.eyebrow{font-size:10px;letter-spacing:2px;margin:0 0 8px}
+.frame-product-info h1{font-size:clamp(22px,2vw,29px);line-height:1.22;font-weight:500;margin:5px 0 15px;letter-spacing:-.35px}
+.frame-product-price{font-size:22px;line-height:1.25;font-weight:600}
+.frame-product-tax{font-size:11px;margin:3px 0}
+.frame-product-description{font-size:13px;line-height:1.55;margin:14px 0 17px}
+.frame-product-option{margin:15px 0}
+.frame-product-option>strong{font-size:12px;margin-bottom:8px}
+.frame-size-options,.frame-finish-options{gap:7px}
+.frame-size-option,.frame-finish-options button{padding:8px 10px;font-size:10px;line-height:1.2}
+.frame-product-benefits{font-size:11px;line-height:1.75;margin:12px 0;padding-left:16px}
+.frame-whatsapp-order{min-height:46px;padding:11px 14px;font-size:11px;letter-spacing:.025em}
+.frame-product-help{font-size:10px;line-height:1.5;margin:8px 0}
+.frame-order-details{margin-top:17px;padding:17px}
+.frame-order-details h2{font-size:20px;margin-bottom:13px}
+.frame-order-details label{font-size:11px;gap:6px}
+.frame-order-details input,.frame-order-details textarea,.frame-order-fields input,.frame-order-fields textarea{padding:10px 11px;font-size:12px}
+.frame-order-fields{gap:8px;margin:11px 0}
+.frame-order-fields textarea{min-height:70px}
+@media(max-width:900px){
+ .frame-product-layout{gap:24px;grid-template-columns:minmax(0,1fr) minmax(0,.95fr)}
+ .frame-product-gallery{grid-template-columns:58px minmax(0,1fr);gap:9px}
+ .frame-product-main-image{height:min(58vw,500px);min-height:340px}
+ .frame-product-info h1{font-size:24px}
+}
+@media(max-width:760px){
+ .frame-product-main{padding:12px 0 38px}
+ .product-breadcrumb{font-size:10px;margin:3px 0 13px}
+ .frame-product-layout{grid-template-columns:minmax(0,1fr);gap:17px}
+ .frame-product-gallery{position:static;grid-template-columns:54px minmax(0,1fr);gap:8px}
+ .frame-product-thumbs{gap:6px}
+ .frame-product-thumb{padding:2px}
+ .frame-product-main-image{height:min(100vw,440px);min-height:260px}
+ .frame-product-info{padding:0 1px}
+ .frame-product-info>.eyebrow{font-size:9px;letter-spacing:1.7px;margin-bottom:6px}
+ .frame-product-info h1{font-size:21px;line-height:1.25;margin:4px 0 10px}
+ .frame-product-price{font-size:20px}
+ .frame-product-tax{font-size:10px}
+ .frame-product-description{font-size:12px;line-height:1.55;margin:11px 0 13px}
+ .frame-product-option{margin:13px 0}
+ .frame-product-option>strong{font-size:11px;margin-bottom:7px}
+ .frame-size-options,.frame-finish-options{gap:6px}
+ .frame-product-info .frame-size-option,.frame-finish-options button{padding:7px 8px;font-size:9px}
+ .frame-product-benefits{font-size:10px;line-height:1.7;margin:9px 0;padding-left:15px}
+ .frame-whatsapp-order{min-height:43px;padding:10px 12px;font-size:10px}
+ .frame-product-help{font-size:10px;margin:7px 0}
+ .frame-order-details{margin-top:14px;padding:13px}
+ .frame-order-details h2{font-size:19px;margin-bottom:11px}
+ .frame-order-details label{font-size:10px}
+ .frame-order-details input,.frame-order-details textarea,.frame-order-fields input,.frame-order-fields textarea{padding:10px;font-size:12px}
+ .frame-order-fields{gap:8px;margin:9px 0}
+ .frame-order-fields textarea{min-height:66px}
+}
