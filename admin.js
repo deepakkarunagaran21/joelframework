@@ -33,6 +33,14 @@
  }, true);
  async function loadKey(key){
    const items=$('#itemsView'),settings=$('#settingsView'),add=$('#addItemBtn');
+   if(key==='orders'){
+     items.classList.remove('hidden');settings.classList.add('hidden');add.classList.add('hidden');
+     if(!db){status('Supabase is not configured.','error');return;}
+     status('Loading customer orders…');
+     const {data,error}=await db.from('customer_orders').select('order_id,order_type,customer_name,customer_phone,customer_address,total_price,order_details,image_links,status,created_at').order('created_at',{ascending:false}).limit(200);
+     if(error){status('Could not load orders: '+error.message,'error');return;}
+     renderOrders(data||[]);status((data||[]).length+' customer order(s) loaded.','success');return;
+   }
    if(!items||!settings||!add){throw new Error('Admin HTML is missing a required content panel.');}
    items.classList.toggle('hidden',key==='site_settings');
    settings.classList.toggle('hidden',key!=='site_settings');
@@ -46,6 +54,17 @@
    if(!meta[key]){status('Unknown admin section: '+key,'error');return;}
    renderList();
    status(records.length+' item(s). Remember to click Save after editing.','success');
+ }
+
+ function renderOrders(rows){
+  const view=$('#itemsView');
+  if(!rows.length){view.innerHTML='<div class="admin-empty">No customer orders yet. New product and combo orders will appear here.</div>';return;}
+  view.innerHTML='<div class="admin-order-list">'+rows.map(o=>{
+   const d=o.order_details||{},frames=Array.isArray(d.frames)?d.frames:[],links=Array.isArray(o.image_links)?o.image_links:[];
+   const items=frames.length?frames.map(f=>'Frame '+esc(f.frame)+' · '+esc(f.size)+' inch').join('<br>'):esc(d.productName||d.product_name||d.size||'Frame order');
+   const photos=links.map((l,i)=>'<a href="'+esc(l.url||'#')+'" target="_blank" rel="noopener">Photo '+(i+1)+'</a>').join(' · ');
+   return '<article class="admin-order-card"><div class="admin-order-top"><div><span class="admin-order-id">'+esc(o.order_id)+'</span><h3>'+esc(o.customer_name)+' · '+esc(o.order_type).toUpperCase()+'</h3></div><strong>₹'+Number(o.total_price||0).toLocaleString('en-IN')+'</strong></div><div class="admin-order-grid"><p><b>Mobile</b><br>'+esc(o.customer_phone)+'</p><p><b>Address</b><br>'+esc(o.customer_address)+'</p><p><b>Items</b><br>'+items+'</p><p><b>Order date</b><br>'+esc(o.created_at?new Date(o.created_at).toLocaleString('en-IN'):'—')+'</p><p><b>Status</b><br>'+esc(o.status||'new')+'</p><p><b>Uploaded photos</b><br>'+photos+'</p></div></article>';
+  }).join('')+'</div>';
  }
  function renderList(){const view=$('#itemsView');if(!records.length){view.innerHTML='<div class="admin-empty">No items yet. Click Add new to create one.</div>';return;}view.innerHTML=records.map((r,i)=>`<article class="admin-item"><img src="${esc(r.image||r.video||'assets/joel-logo.png')}" alt="" onerror="this.style.opacity=.2"><div><h3>${esc(r.name||r.title||r.label||r.id||('Item '+(i+1)))}</h3><p>${currentKey==='products'?esc(r.size||'')+' · '+esc(r.finish||'')+' · ₹'+Number(r.price||0).toLocaleString('en-IN'):currentKey==='combo_offers'?'₹'+Number(r.price||0).toLocaleString('en-IN')+' · '+esc(r.description||''):esc(r.description||r.image||r.video||'')}</p><p>${r.active===false?'Hidden':'Visible'}</p></div><div class="admin-item-actions"><button class="admin-btn light" data-edit="${i}">Edit</button><button class="admin-btn danger" data-delete="${i}">Delete</button></div></article>`).join('');}
  $('#itemsView').addEventListener('click',e=>{const ed=e.target.closest('[data-edit]'),del=e.target.closest('[data-delete]');if(ed)openEditor(Number(ed.dataset.edit));if(del){const i=Number(del.dataset.delete);if(confirm('Delete this item from the saved list?')){records.splice(i,1);renderList();status('Item removed from the editor. Click Save to publish it.');}}});
