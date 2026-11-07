@@ -1590,3 +1590,24 @@ footer .footer-links a{color:#f7f4ee}
  .combo-page .combo-inline-customer .combo-customer-fields{grid-template-columns:1fr}
  .combo-page .combo-inline-customer textarea,.combo-page .combo-inline-customer #sendComboOrder{grid-column:auto}
 }
+
+/* Eight frame designs: size is a price-only variant, never a different product image. */
+.frame-product-option:has(#frameSizeOptions){margin-top:24px}
+.frame-size-options{gap:8px}
+.frame-size-option{min-width:86px;padding:10px 12px;font-size:12px}
+.frame-product-thumb{width:82px;height:82px}
+@media(max-width:760px){
+ .frame-product-layout{grid-template-columns:1fr;gap:18px}
+ .frame-product-gallery{position:static;grid-template-columns:58px minmax(0,1fr);gap:9px}
+ .frame-product-thumbs{gap:6px}
+ .frame-product-thumb{width:58px;height:58px}
+ .frame-product-main-image{height:auto;min-height:0;aspect-ratio:1/1}
+ .frame-product-info h1{font-size:25px;margin:7px 0 12px}
+ .frame-product-price{font-size:23px}
+ .frame-product-description{font-size:12px;margin:12px 0 16px}
+ .frame-product-option{margin:14px 0}
+ .frame-size-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+ .frame-size-option{min-width:0;padding:10px 4px;font-size:10px}
+ .frame-product-benefits{font-size:11px;line-height:1.8}
+ .frame-order-details{padding:15px;margin-top:16px}
+}
