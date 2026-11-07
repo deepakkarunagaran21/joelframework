@@ -20,7 +20,7 @@ Deno.serve(async(req)=>{
   const rp=await fetch("https://api.razorpay.com/v1/orders",{method:"POST",headers:{"Authorization":"Basic "+auth,"Content-Type":"application/json"},body:JSON.stringify({amount,currency:"INR",receipt:orderId,notes:{joel_order_id:orderId}})});
   const payment=await rp.json();
   if(!rp.ok)return json({error:payment.error?.description||"Razorpay could not create the payment order."},502);
-  const {error:updateError}=await db.from("customer_orders").update({razorpay_order_id:payment.id,payment_status:"pending",status:"payment_pending"}).eq("order_id",orderId);
+  const {error:updateError}=await db.from("customer_orders").update({razorpay_order_id:payment.id,payment_status:"pending",status:"payment_pending",customer_name:String(body.customer?.name||""),customer_phone:String(body.customer?.phone||""),customer_address:String(body.customer?.address||"")}).eq("order_id",orderId);
   if(updateError)return json({error:"Could not update saved order for payment."},500);
   return json({keyId:key,razorpayOrderId:payment.id,amount:payment.amount,currency:payment.currency});
  }catch(e){return json({error:e instanceof Error?e.message:"Unexpected payment error."},500)}
