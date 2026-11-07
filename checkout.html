@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkout | Joel Frame Work's</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"><script src="https://checkout.razorpay.com/v1/checkout.js"></script></head>
+<body class="checkout-page">
+<header class="site-header"><div class="container nav-wrap"><a class="brand" href="index.html"><img class="brand-logo-image" src="assets/joel-logo.png" alt="Joel Frame Work's"></a><nav class="nav"><a href="index.html">Home</a><a href="index.html#combo-offers">Combo Offers</a><a href="index.html#products">All Products</a><a href="index.html#about-us">About Us</a></nav><a class="nav-cta" href="index.html#products">Continue shopping</a></div></header>
+<main class="checkout-main"><div class="container checkout-container">
+<div class="checkout-progress" aria-label="Checkout progress"><div class="checkout-step is-done"><span>✓</span><small>Cart</small></div><i></i><div class="checkout-step is-current"><span>2</span><small>Address</small></div><i></i><div class="checkout-step"><span>3</span><small>Payment</small></div></div>
+<div class="checkout-layout">
+<section class="checkout-left"><div class="checkout-heading"><p class="eyebrow">JOEL FRAME WORK'S · SECURE CHECKOUT</p><h1>Confirm your order</h1><p>One last step to turn your favourite memories into something special.</p></div>
+<div class="checkout-card"><div class="checkout-card-title"><h2>Delivery details</h2><span>STEP 02</span></div>
+<form id="checkoutAddressForm" class="checkout-address-form">
+<label>Full name<input id="checkoutName" autocomplete="name" required placeholder="Enter your name"></label>
+<div class="checkout-two-fields"><label>Mobile number<input id="checkoutPhone" autocomplete="tel" inputmode="tel" required placeholder="10-digit mobile number"></label><label>PIN code<input id="checkoutPincode" inputmode="numeric" maxlength="6" placeholder="Optional"></label></div>
+<label>Delivery address<textarea id="checkoutAddress" autocomplete="street-address" required placeholder="House / Flat, street, area, city, state"></textarea></label>
+<div class="checkout-address-note">Your uploaded photos and order details are already saved securely with your order.</div>
+</form></div>
+<div class="checkout-card checkout-payment-card"><div class="checkout-card-title"><h2>Payment method</h2><span>STEP 03</span></div><div class="razorpay-mark"><span class="razorpay-mark-symbol">R</span><div><strong>Secure online payment</strong><small>UPI · Cards · Netbanking · Wallets (as supported by Razorpay)</small></div><span class="secure-lock">⌑ Secure</span></div><p class="checkout-muted">You will be redirected to Razorpay's secure checkout to complete your payment.</p><div id="checkoutStatus" class="checkout-status" role="status" hidden></div><button id="payNowButton" class="checkout-pay-button" type="button">CONTINUE TO PAYMENT <span>→</span></button><p class="checkout-terms">By continuing, you agree to our order and delivery terms.</p></div>
+</section>
+<aside class="checkout-summary"><div class="checkout-card-title"><h2>Order summary</h2><span id="checkoutItemType">ORDER</span></div><div class="checkout-summary-product"><div class="checkout-summary-thumb" id="checkoutThumb">JF</div><div><strong id="checkoutItemName">Your frame order</strong><small id="checkoutItemDescription">Personalised photo frame</small><small id="checkoutOrderId"></small></div></div><div class="checkout-summary-lines"><div><span>Item total</span><strong id="checkoutSubtotal">₹0</strong></div><div><span>Delivery</span><strong class="checkout-free">To be confirmed</strong></div><div class="checkout-total"><span>Order total</span><strong id="checkoutTotal">₹0</strong></div></div><div class="checkout-trust"><span>✓</span><p>Your order is saved before payment. It will be marked paid only after Razorpay payment verification.</p></div><a class="checkout-back-link" href="javascript:history.back()">← Back to customise your order</a></aside>
+</div></div></main>
+<footer><div class="container footer-inner"><div><a class="brand footer-brand" href="index.html"><img class="brand-logo-image" src="assets/joel-logo.png" alt="Joel Frame Work's"></a><p>Premium frames for everyday memories.</p></div><div class="footer-links"><a href="index.html#products">Frames</a><a href="index.html#combo-offers">Combo offers</a><a href="index.html#location">Contact</a></div></div><p class="copyright">© 2026 Joel Frame Work's. All rights reserved.</p></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="checkout.js"></script></body></html>
